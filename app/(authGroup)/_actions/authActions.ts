@@ -1,5 +1,7 @@
 "use server";
 
+import { cookies } from "next/headers";
+
 type LoginSate = {
   success: boolean;
   statusCode: number;
@@ -11,7 +13,7 @@ type LoginSate = {
 };
 export const loginAction = async (prevState: LoginSate, formData: FormData) => {
   console.log(formData);
-  console.log(prevState,"prevState");
+  console.log(prevState, "prevState");
 
   const email = formData.get("email");
   const password = formData.get("password");
@@ -26,8 +28,21 @@ export const loginAction = async (prevState: LoginSate, formData: FormData) => {
     body: JSON.stringify(payload),
   });
 
-  const result = await res.json();
+  const result: LoginSate = await res.json();
 
-  console.log(result);
+  if (result.success) {
+    const cookieStore = await cookies();
+
+    cookieStore.set("accessToken", result.data.accessToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24,
+      sameSite: "lax",
+    });
+    cookieStore.set("refreshToken", result.data.refreshToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "lax",
+    });
+  }
   return result;
 };
