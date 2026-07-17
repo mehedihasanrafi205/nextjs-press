@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { IBM_Plex_Sans, Source_Sans_3 } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
 
 const sourceSans3Heading = Source_Sans_3({subsets:['latin'],variable:'--font-heading'});
 
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {/* Navbar */}
         {children}
+        <Toaster position="top-right" richColors />
         {/* Footer */}
       </body>
     </html>
