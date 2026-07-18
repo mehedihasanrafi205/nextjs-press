@@ -31,12 +31,12 @@ const navLinks = [
   { label: "Pricing", href: "/pricing" },
 ];
 
-// The signed-in user (would normally come from your auth/session)
-const user = {
-  name: "Ada Lovelace",
-  email: "ada@example.com",
-  avatar: "",
-};
+// // The signed-in user (would normally come from your auth/session)
+// const user = {
+//   name: "Ada Lovelace",
+//   email: "ada@example.com",
+//   avatar: "",
+// };
 
 // Grouped user dropdown options
 const userMenuGroups = [
@@ -47,7 +47,37 @@ const userMenuGroups = [
   ],
 ];
 
-export function Navbar() {
+
+
+type IUser = {
+    success : boolean,
+    message : string,
+    data : {
+        profile : {
+            id : string,
+            name : string,
+            email : string,
+            activeStatus : string,
+            role : string,
+            createdAt : string,
+            updatedAt : string,
+            profile : {
+                id : string,
+                profilePhoto : string,
+                bio : string | null,
+                userId : string,
+                createdAt : string,
+                updatedAt : string
+            }
+        }
+    }
+}
+
+type NavbarProps = {
+    user: IUser
+}
+
+export function Navbar({user}:NavbarProps) {
   return (
     <header className="border-b border-border bg-background">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4">
@@ -82,7 +112,7 @@ export function Navbar() {
               className="relative size-9 rounded-full p-0 cursor-pointer"
             >
               <Avatar className="size-9">
-                <AvatarImage src={user.avatar || undefined} alt={user.name} />
+
                 <AvatarFallback>
                   <User className="size-4" />
                 </AvatarFallback>
@@ -94,10 +124,10 @@ export function Navbar() {
               <DropdownMenuLabel>
                 <div className="flex flex-col gap-0.5">
                   <span className="text-sm font-medium text-foreground">
-                    {user.name}
+                    {user.data?.profile.name || 'Name'}
                   </span>
                   <span className="text-xs font-normal text-muted-foreground">
-                    {user.email}
+                    {user.data?.profile.email || 'Email'}
                   </span>
                 </div>
               </DropdownMenuLabel>
