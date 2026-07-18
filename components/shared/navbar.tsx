@@ -43,10 +43,8 @@ const userMenuGroups = [
   [
     { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
     { label: "Profile", icon: User, href: "/profile" },
-
     { label: "Settings", icon: Settings, href: "/settings" },
   ],
-  ,
 ];
 
 export function Navbar() {
