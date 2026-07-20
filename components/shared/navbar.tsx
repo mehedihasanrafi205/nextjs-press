@@ -73,15 +73,13 @@ type NavbarProps = {
 };
 
 export function Navbar({ user }: NavbarProps) {
-  const [isLogout, setLogout] = useState(false);
-
   const router = useRouter();
-  useEffect(() => {
-    if (isLogout) {
-      toast.success("User Logged Out Successfully");
-      router.push("/login");
-    }
-  }, [isLogout, router]);
+
+  const userLogout = async () => {
+    await logout();
+    toast.success("User Logged Out Successfully");
+    router.push("/login");
+  };
 
   return (
     <header className="border-b border-border bg-background">
@@ -156,8 +154,7 @@ export function Navbar({ user }: NavbarProps) {
               <DropdownMenuItem
                 variant="destructive"
                 onClick={async () => {
-                  await logout();
-                  setLogout(true);
+                  await userLogout();
                 }}
               >
                 <LogOut data-icon="inline-start" />
@@ -166,10 +163,8 @@ export function Navbar({ user }: NavbarProps) {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <Link href={"/login"}> 
-          <Button className="cursor-pointer">
-            Login
-          </Button>
+          <Link href={"/login"}>
+            <Button className="cursor-pointer">Login</Button>
           </Link>
         )}
       </div>
