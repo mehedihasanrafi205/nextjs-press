@@ -16,7 +16,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/service/logout";
-import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -87,7 +86,7 @@ export function Navbar({ user }: NavbarProps) {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <span className="text-lg font-semibold tracking-tight text-foreground">
-            next.js <span className="text-primary">press</span>
+            NEXT.JS <span className="text-primary">Press</span>
           </span>
         </Link>
 
